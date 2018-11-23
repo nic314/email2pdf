@@ -139,10 +139,6 @@ def main(argv, syslog_handler, syserr_handler):
             logger.warning("Second try: didn't print body (on request) and still didn't find any attachments even when looked for "
                            "referenced ones with a filename. Giving up.")
 
-    if warning_count_filter.warning_pending:
-        with open(get_modified_output_file_name(output_file_name, "_original.eml"), 'w') as original_copy_file:
-            original_copy_file.write(input_data)
-
     return (warning_count_filter.warning_pending, args.mostly_hide_warnings)
 
 
@@ -724,9 +720,6 @@ def call_main(argv, syslog_handler, syserr_handler):
     except:
         traceback.print_exc()
         sys.exit(3)
-
-    if warning_pending and not mostly_hide_warnings:
-        sys.exit(1)
 
 
 def convert(input_file, output_path, output_filename, argv_input):
